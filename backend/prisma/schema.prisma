@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  // NOTICE: The 'url' line has been completely removed!
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  aadhaar   String   @unique
+  role      String   @default("DRIVER")
+  createdAt DateTime @default(now())
+  
+  // A driver can have many violations
+  violations Violation[] 
+}
+
+// --- NEW: The Violation Tracker for Prompt #27 ---
+model Violation {
+  id        Int      @id @default(autoincrement())
+  time      DateTime @default(now())
+  latitude  Float
+  longitude Float
+  message   String
+  
+  // Link this violation to the specific driver who did it
+  driverId  Int
+  driver    User     @relation(fields: [driverId], references: [id])
+}

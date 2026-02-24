@@ -1,0 +1,13 @@
+/* This removes the default spacing from the browser */
+html, body, #root {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* This stops the page from bouncing or scrolling */
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
